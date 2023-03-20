@@ -2,11 +2,12 @@ package interfacetype
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/gogo/protobuf/proto"
 	"github.com/gogo/protobuf/protoc-gen-gogo/descriptor"
 	"github.com/gogo/protobuf/protoc-gen-gogo/generator"
-	"github.com/regen-network/cosmos-proto"
-	"strings"
+	cosmos_proto "github.com/regen-network/cosmos-proto"
 )
 
 type interfacetype struct {
@@ -52,14 +53,14 @@ func (p *interfacetype) Generate(file *generator.FileDescriptor) {
 			iface = iface[1:]
 			handleNonPointer = false
 		}
-		if len(message.OneofDecl) != 1 {
-			panic("interfacetype only supports messages with exactly one oneof declaration")
-		}
-		for _, field := range message.Field {
-			if idx := field.OneofIndex; idx == nil || *idx != 0 {
-				panic("all fields in interfacetype message must belong to the oneof")
-			}
-		}
+		// if len(message.OneofDecl) != 1 {
+		// 	panic("interfacetype only supports messages with exactly one oneof declaration")
+		// }
+		// for _, field := range message.Field {
+		// 	if idx := field.OneofIndex; idx == nil || *idx != 0 {
+		// 		panic("all fields in interfacetype message must belong to the oneof")
+		// 	}
+		// }
 
 		ifacePackage, ifaceName := splitCPackageType(iface)
 		ifaceRef := ifaceName

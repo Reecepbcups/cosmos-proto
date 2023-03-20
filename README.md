@@ -1,5 +1,32 @@
 # cosmos-proto
 
+This fork fixes an issue with the interface type to generate proto.
+<https://github.com/CosmosContracts/token-factory/pull/9>
+
+Install this fork like so:
+
+```bash
+git clone https://github.com/reecepbcups/cosmos-proto.git
+cd cosmos-proto/protoc-gen-gocosmos
+go install .
+
+# then do your buf generate, etc
+echo "Generating gogo proto code"
+cd proto
+buf mod update
+cd ..
+buf generate
+# move proto files to the right places
+cp -r ./github.com/CosmWasm/token-factory/x/* x/
+rm -rf ./github.com
+go mod tidy 
+
+```
+
+---
+
+
+
 THIS PACKAGE IS DEPRECATED AND NOT USED ANY MORE.
 
 `protoc-gen-gocosmos` app was moved to [github.com/cosmos/gogoproto](https://github.com/cosmos/gogoproto).
